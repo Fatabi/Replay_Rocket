@@ -11,6 +11,10 @@ using TMPro; // Import the TextMeshPro namespace
 public class Replay_from_CSV_Multiple : MonoBehaviour
 {
     // public Vector3 phiThetaPsiDeg;
+    public float playBackSpeed;
+    public float[] playBackSpeedArray;
+    public TextMeshProUGUI playBackSpeedDisplay;
+    private int playBackSpeedCounter = 0;
     public GameObject[] aircrafts;
     private GameObject selectedAircraft;
     // public TextAsset csvFile; 
@@ -45,7 +49,7 @@ public class Replay_from_CSV_Multiple : MonoBehaviour
         
          foreach (TMP_InputField inputField in inputFields)
          {
-            inputField.text = "C:/Users/cyber/Replay_Rocket/Assets/Data/Replay_Deneme.csv";
+            inputField.text = "Assets/Data/hava-kara/hava2kara_m1.csv";
          }
          UpdateCSVList();
 
@@ -86,7 +90,7 @@ public class Replay_from_CSV_Multiple : MonoBehaviour
         }
         else
         {
-            slider.value += Time.deltaTime;
+            slider.value += Time.deltaTime*playBackSpeed;
             sliderTime_s = slider.value;
         }      
         UpdateButtonMod();
@@ -199,5 +203,15 @@ public class Replay_from_CSV_Multiple : MonoBehaviour
         slider.maxValue = maxTime;
     }
 
+    public void ChangePlaybackSpeed(){
+        playBackSpeedCounter++;
+        if (playBackSpeedCounter == playBackSpeedArray.Length)
+        {
+            playBackSpeedCounter = 0;
+        }
+        playBackSpeed = playBackSpeedArray[playBackSpeedCounter];
+        playBackSpeedDisplay.text = playBackSpeed + "x";
+      
+    }
  
 }
